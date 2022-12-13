@@ -119,5 +119,29 @@ public function run()
 実装できた
 
 ## Task一覧機能の実装
+routes/web.phpに以下を追加
+```
+Route::get('/users/{id}/tasks', [TaskController::class, 'index'])->name('tasks.index');
+```
 
+index.blade.phpを編集する
+public/css/styles.cssで多少デザインを整える。
+
+コントローラー(TaskController.php)の編集
+```
+public function index()
+    {
+        $tasks = Task::all();  *Taskのデータを全て取得
+
+        return view('tasks/index', [
+            'tasks' => $tasks,　　　*tasksに$tasksを代入
+        ]);
+    }
+```
+
+## Task作成機能の実装
+routes/web.phpに以下を追加
+```
+Route::get('/users/{id}/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+```
 
