@@ -38,3 +38,70 @@ Request created successfully.
 Controller created successfully.
 Policy created successfully.
 ```
+
+マイグレーションファイルを以下のように編集
+```
+public function up()
+    {
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');　*ユーザーの外部キーを入れておく
+            $table->string('title', 100);
+            $table->integer('status')->default(1);
+            $table->date('due_date');
+            $table->timestamps();
+        });
+    }
+```
+`php artisan migrate`を実行
+これでTaskのテーブルが作成される
+
+## Taskのテストデータを登録する
+datebeseファイルの中の
+- factries
+- seeders
+を編集
+
+factories/TaskFactorie.phpに以下を追加
+```
+use App\Models\Task;
+中略
+return [
+            'user_id' => 1,
+            'title' => $this->faker->realText(rand(10,100)),
+            'status' => 1,
+            'due_date' => Carbon::now()->addDay(5),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ];
+```
+
+seeders/TaskSeeder.phpに以下を追加
+```
+use App\Models\Task;
+中略
+public function run()
+    {
+        Task::factory()->count(10)->create();
+    }
+```
+seeders/DatebaseSeeder.phpに以下を追加
+```
+public function run()
+    {
+        $this->call(UserSeeder::class);
+        $this->call(TaskSeeder::class);
+    }
+```
+
+seeders/UserSeeder.phpを作成し（`php artisan make:seeder UserSeeder`）以下を追加
+```
+use App\Models\User;
+中略
+public function run()
+    {
+        User::factory()->count(3)->create();
+    }
+```
+
+`php artisan db:seed`を実行してテストデータを入れれた。
