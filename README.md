@@ -105,3 +105,19 @@ public function run()
 ```
 
 `php artisan db:seed`を実行してテストデータを入れれた。
+
+## ログイン機能を実装する(Laravel Breeze)
+ログインユーザーがタスクを登録できるようにログイン機能から実装していく。今回は初学者向けのLaravel Breezeにて実装する。
+導入手順
+1.`composer require laravel/breeze:^2.1`でインストールする
+2.`php artisan breeze:install`で実行
+3.`npm install`　`npm run dev`も実行
+4.`php artisan migrate`
+
+<img width="1440" alt="スクリーンショット 2022-12-13 13 35 20" src="https://user-images.githubusercontent.com/105266085/207227671-c3459b18-c3de-4b92-abf8-bdbf63513b0e.png">
+
+実装できた
+
+## Task一覧機能の実装
+
+
