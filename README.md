@@ -26,5 +26,15 @@ DB_DATABASE=myapp_todo *ここをデータベース名に変更
 DB_USERNAME=root
 DB_PASSWORD=
 ```
-
-
+## Taskモデルを作成する
+`php artisan make:model -a Task`でマイグレーションファイル、コントローラー、seederファイルなど一括で作成する。
+```実行結果
+Model created successfully.
+Factory created successfully.
+Created Migration: 2022_12_13_025926_create_tasks_table
+Seeder created successfully.
+Request created successfully.
+Request created successfully.
+Controller created successfully.
+Policy created successfully.
+```
