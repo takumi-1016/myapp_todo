@@ -10,7 +10,7 @@
 ## アプリ作成
 `composer create-project "laravel/laravel=8.*" .`にてファイル作成
 
-##　 データベースの設定
+## データベースの設定
 `mysql`
 から
 `mysql> create database myapp_todo;`
