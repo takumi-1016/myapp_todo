@@ -140,8 +140,58 @@ public function index()
 ```
 
 ## Task作成機能の実装
+### Task作成ページ
+作成用のページを用意する。
 routes/web.phpに以下を追加
 ```
-Route::get('/users/{id}/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+Route::get('/users/{id}/tasks/new', [TaskController::class, 'new'])->name('tasks.new');
+```
+コントローラーの編集
+```
+public function index()
+    {
+        return view('tasks/new', [
+            'user_id' => $id
+        ]);
+    }
+```
+task.newのviewを編集する
+
+### Task作成
+`php artisan make:request CreateTask`でバリデーションのための FormRequest クラスを作成する。
+```
+public function authorize()
+    {
+        return true;  *今回は使わないのでtrueに変える
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'title' => 'required|max:100',　　*字数制限
+            'due_date' => 'required|date|after_or_equal:today',　　*今日以降の日付にする
+        ];
+    }
+    
+    public function attributes()
+    {
+        return [
+            'title' => 'タイトル',
+            'due_date' => '期限日',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'due_date.after_or_equal' => ':attribute には今日以降の日付を入力してください。',
+        ];
+    }
+}
 ```
 
