@@ -12,12 +12,6 @@
                 タスクを追加する
               </a>
             </div>
-            <div>
-              <form action="{{ route('tasks.index') }}" method="GET">
-                <input type="text" name="keyword" value="{{ $keyword }}">
-                <input type="submit" value="検索">
-              </form>
-            </div>
           </div>
           <table class="table">
             <thead>
