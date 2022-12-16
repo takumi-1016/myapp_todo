@@ -6,14 +6,18 @@
       <div class="panel-heading">{{ Auth::user()->name }}さんのタスク</div>
       <div class="panel-body">
         <form action="{{ route('tasks.index') }}" method="GET" class="input-group">
-          <input type="text" class="form-control" placeholder="キーワードを入力" name="keyword" value="{{ $keyword }}">
-          <input type="submit" value="検索" class="btn btn-outline-success">
+          <input type="text" class="form-control" id="input" placeholder="キーワードを入力" name="keyword" value="{{ $keyword }}">
+          <input type="submit" value="検索" class="btn bg-info">
+        </form>
+        <form action="{{route('tasks.index')}}">
+          <button type="submit" name="sort" value="1"class="btn btn-primary">期限が近いタスク</button>
+          <button type="submit" name="sort" value="2"class="btn btn-primary">完了していないタスク</button>
         </form>
       </div>
       <table class="table">
         <thead>
         <tr>
-          <th>タイトル</th>
+          <th>タスク名</th>
           <th>状態</th>
           <th>期限</th>
           <th>優先度</th>

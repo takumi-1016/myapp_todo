@@ -18,17 +18,26 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        $current_user = Auth::user();
         $tasks =  Auth::user()->tasks()->orderBy('emergency', 'desc')->get();
         $keyword = $request->input('keyword');
         $query = Task::query();
+        $sort = $request->get('sort');
 
+        if ($sort) {
+            if ($sort === '1') {
+                $tasks = Auth::user()->tasks()->orderBy('due_date', 'asc')->get();
+            }
+            if ($sort === '2') {
+                $tasks = Auth::user()->tasks()->where('status', '=', "1")->orWhere('status', '=', "2")->get();
+            }
+        }
         if(!empty($keyword)) {
             $query->where('title', 'LIKE', "%{$keyword}%");
-            $tasks = $query->orderBy('emergency', 'desc')->get();
+            $tasks = $query->where('user_id', \Auth::user()->id)->orderBy('emergency', 'desc')->get();
         }
 
         return view('tasks/index', [
+            'sort' => $sort,
             'tasks' => $tasks,
             'keyword' => $keyword,
         ]);
