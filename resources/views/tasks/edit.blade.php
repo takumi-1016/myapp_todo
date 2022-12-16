@@ -42,6 +42,19 @@
                 </select>
               </div>
               <div class="form-group">
+                <label for="emergency">優先度</label>
+                <select name="emergency" id="emergency" class="form-control">
+                  @foreach(\App\Models\Task::EMERGENCY as $key => $val)
+                    <option
+                        value="{{ $key }}"
+                        {{ $key == old('emergency', $task->emergency) ? 'selected' : '' }}
+                    >
+                      {{ $val['emergency'] }}
+                    </option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="due_date">期限</label>
                 <input type="text" class="form-control" name="due_date" id="due_date"
                        value="{{ old('due_date') ?? $task->formatted_due_date }}" />

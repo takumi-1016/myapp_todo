@@ -19,13 +19,13 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $current_user = Auth::user();
-        $tasks =  Auth::user()->tasks()->get();
+        $tasks =  Auth::user()->tasks()->orderBy('emergency', 'desc')->get();
         $keyword = $request->input('keyword');
         $query = Task::query();
 
         if(!empty($keyword)) {
             $query->where('title', 'LIKE', "%{$keyword}%");
-            $tasks = $query->get();
+            $tasks = $query->orderBy('emergency', 'desc')->get();
         }
 
         return view('tasks/index', [
@@ -106,6 +106,7 @@ class TaskController extends Controller
         $task->title = $request->title;
         $task->status = $request->status;
         $task->due_date = $request->due_date;
+        $task->emergency = $request->emergency;
         $task->save();
 
         return redirect()->route('tasks.index');
@@ -117,8 +118,10 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy(int $task_id)
     {
-        //
+        Task::find($task_id)->delete();
+    
+        return redirect('/tasks');
     }
 }

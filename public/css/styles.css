@@ -5,6 +5,10 @@ body {
   background-color: #f4f7f8;
 }
 
+main{
+  margin-top: 20px;
+}
+
 .navbar {
   margin: 2rem 0 2.5rem 0;
 }
@@ -44,3 +48,29 @@ a.my-navbar-item:hover {
 .form-control[readonly] {
   background-color: #fff;
 }
+
+.header{
+  height: 58px;
+  background-color: rgb(70, 70, 70);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.header-right {
+  display: flex;
+}
+
+.header-right a{
+  display: flex;
+  margin-right: 10px;
+}
+
+.header-logo {
+  display: block;
+  font-size: 40px;
+  color: white;
+}
+

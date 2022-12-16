@@ -15,13 +15,14 @@ use App\Http\Controllers\Home;
 |
 */
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+    Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 
     Route::get('/tasks/new', [TaskController::class, 'new'])->name('tasks.new');
     Route::post('/tasks/new', [TaskController::class, 'create']);
 
     Route::get('/tasks/{task_id}/edit', [TaskController::class, 'editShow'])->name('tasks.edit');
     Route::post('/tasks/{task_id}/edit', [TaskController::class, 'edit']);
+    Route::post('/tasks/{task_id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 });
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,4 +30,3 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/', [Home::class, 'top'])->name('Home.top');

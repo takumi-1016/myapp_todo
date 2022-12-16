@@ -19,6 +19,7 @@ class TaskFactory extends Factory
             'user_id' => 1,
             'title' => $this->faker->realText(rand(10,100)),
             'status' => 1,
+            'emergency' => 1,
             'due_date' => Carbon::now()->addDay(5),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
